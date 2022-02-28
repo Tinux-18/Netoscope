@@ -1,10 +1,31 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Limelight&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>Netoscope</title>
 </head>
+<header>
+    <img src="/logo.gif" alt="Kaiserpanorama" id="logo">
+    <h1>Netoscope</h1>
+</header>
+
 <body>
+    <hr>
+    <div id="main">
+        <div class="pic-grid">
+            <div class="pic-cell" v-for="pic in pics">
+                <img :key="pic.id" id="pic_{{pic.id}}" :src="pic.url" :alt="pic.description">
+                <label for="pic_{{pic.id}}">{{pic.title}}</label>
+            </div>
+        </div>
+    </div>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
+
 </html>
