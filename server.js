@@ -5,8 +5,9 @@ const logger = require("morgan");
 const flash = require("connect-flash");
 const db = require("./sql/db");
 const { hash, compare, redirectWithFlash } = require("./utils");
-const { uploader } = require("./upload");
-const { s3 } = require("./aws");
+//TODO move utils to separate folder
+const { serverUpload } = require("./multerUpload");
+const { s3Upload } = require("./aws");
 
 // Set up basic auth
 const auth = (req, res, next) => {
@@ -45,15 +46,28 @@ app.get("/pics.json", (req, res) => {
         .catch(err => console.log(`getPics failed with: ${err}`));
 });
 
-app.post("/upload", uploader.single("file"), (req, res) => {
-    console.log("/upload hit");
-
-    if (!req.file) {
-        res.json({ success: false });
-    } else {
-        res.json({ success: true });
+app.post(
+    "/upload",
+    serverUpload.single("file"),
+    s3Upload,
+    (req, res) => {
+        console.log("/upload hit");
+        db.addPic(
+            `https://s3.amazonaws.com/spicedling/${req.file.filename}`,
+            req.body.username,
+            req.body.title,
+            req.body.description
+        )
+            .then(({ rows }) => {
+                console.log(`img: ${req.body.title} has been added`);
+                res.json(rows[0]);
+            })
+            .catch(err => {
+                console.log(`addPic failed with: ${err}`);
+                return res.sendStatus(500);
+            });
     }
-});
+);
 
 app.get("*", (req, res) => {
     res.sendFile(`${__dirname}/index.html`);

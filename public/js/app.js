@@ -26,6 +26,7 @@ const app = Vue.createApp({
             this.file = e.target.files[0];
         },
         upload: function (e) {
+            console.log("this.file :>> ", this.file);
             const fd = new FormData();
             fd.append("title", this.title);
             fd.append("description", this.description);
@@ -38,7 +39,9 @@ const app = Vue.createApp({
             })
                 .then(res => res.json())
                 .then(uploadData => {
-                    console.log("uploadData :>> ", uploadData);
+                    // console.log("uploadData :>> ", uploadData);
+                    // console.log("this.pics :>> ", this.pics);
+                    this.pics.unshift(uploadData);
                 })
                 .catch(err =>
                     console.log(
@@ -46,6 +49,8 @@ const app = Vue.createApp({
                     )
                 );
         },
+        //TODO check user input
+        checkFile: function () {},
     },
 });
 

@@ -2,6 +2,7 @@ body {
     background-color: #7899d4;
     color: #5a5a8b;
     font-family: "Lato", sans-serif;
+    margin: 20px;
 }
 
 header {
@@ -23,23 +24,93 @@ hr {
 }
 
 #upload {
-    height: 60px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.pic-grid img {
-    height: auto;
-    width: 300px;
-    object-fit: fill;
+#upload h2 {
+    padding-right: 40px;
 }
 
-.pic-cell {
+#upload input[type="text"],
+button {
+    width: 100px;
+    margin: 10px;
+    background-color: #7899d4;
+    border: 0px;
+    color: #5a5a8b;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #5a5a8b;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #5a5a8b;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #5a5a8b;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+}
+
+#file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.board {
+    display: grid;
+    grid: repeat(2, 350px) / repeat(3, 350px);
+    gap: 15px;
+    justify-content: center;
+}
+
+.card {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.pic-grid {
-    display: grid;
-    grid: repeat(2, 1fr) / repeat(3, 1fr);
-    justify-items: stretch;
+.card img {
+    height: 90%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3%;
+}
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .board {
+        grid: repeat(6, 350px) / repeat(1, 350px);
+    }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .board {
+        grid: repeat(2, 300px) / repeat(3, 300px);
+    }
 }

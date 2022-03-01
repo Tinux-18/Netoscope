@@ -20,3 +20,9 @@ exports.getPics = picId => {
         return db.query("SELECT * FROM images ORDER BY id DESC");
     }
 };
+
+exports.addPic = (url, username, title, description) =>
+    db.query(
+        "INSERT INTO images (url, username, title, description) VALUES ($1, $2, $3, $4) RETURNING *",
+        [url, username, title, description]
+    );
