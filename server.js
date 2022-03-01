@@ -5,9 +5,8 @@ const logger = require("morgan");
 const flash = require("connect-flash");
 const db = require("./sql/db");
 const { hash, compare, redirectWithFlash } = require("./utils");
-
-//Middleware
-app.use(express.json());
+const { uploader } = require("./upload");
+const { s3 } = require("./aws");
 
 // Set up basic auth
 const auth = (req, res, next) => {
@@ -22,7 +21,16 @@ const auth = (req, res, next) => {
         next();
     }
 };
-app.use("/", auth);
+
+//Middleware
+app.use(express.json());
+app.use(logger("dev"));
+app.use(flash());
+app.use(function (req, res, next) {
+    res.setHeader("x-frame-options", "deny");
+    next();
+}); // middleware to prevent your site from being used in clickjacking
+app.use("*", auth);
 
 //Serve content
 app.use(express.static("./public"));
@@ -35,6 +43,16 @@ app.get("/pics.json", (req, res) => {
             res.json(rows);
         })
         .catch(err => console.log(`getPics failed with: ${err}`));
+});
+
+app.post("/upload", uploader.single("file"), (req, res) => {
+    console.log("/upload hit");
+
+    if (!req.file) {
+        res.json({ success: false });
+    } else {
+        res.json({ success: true });
+    }
 });
 
 app.get("*", (req, res) => {

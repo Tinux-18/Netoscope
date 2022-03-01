@@ -18,6 +18,14 @@
 <body>
     <hr>
     <div id="main">
+        <form id="upload">
+            <input v-model="title" type="text" name="title" id="title" placeholder="title">
+            <input v-model="description" type="text" name="description" id="description" placeholder="description">
+            <input v-model="username" type="text" name="username" id="username" placeholder="username" required>
+            <input @change="selectFile" type="file" name="file" id="file" accept="image/*" required>
+            <button @click.prevent.default="upload">Upload</button>
+        </form>
+
         <div class="pic-grid">
             <div class="pic-cell" v-for="pic in pics">
                 <img :key="pic.id" id="pic_{{pic.id}}" :src="pic.url" :alt="pic.description">
