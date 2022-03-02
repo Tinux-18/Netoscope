@@ -4,7 +4,7 @@ const path = require("path");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, path.join(__dirname, "uploads"));
+        callback(null, "/home/tinux/projects/rue-imageboard/uploads");
     },
     filename: function (req, file, callback) {
         uidSafe(24).then(uid => {

@@ -2,7 +2,8 @@ body {
     background-color: #7899d4;
     color: #5a5a8b;
     font-family: "Lato", sans-serif;
-    margin: 20px;
+    position: relative;
+    margin: 0;
 }
 
 header {
@@ -16,6 +17,8 @@ header {
 #logo {
     width: 70px;
     height: 70px;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 hr {
@@ -23,7 +26,7 @@ hr {
     border-top: 4px solid #700548;
 }
 
-#upload {
+.upload {
     height: 40px;
     display: flex;
     justify-content: center;
@@ -31,11 +34,11 @@ hr {
     gap: 10px;
 }
 
-#upload h2 {
+.upload h2 {
     padding-right: 40px;
 }
 
-#upload input[type="text"],
+.upload__input-text,
 button {
     width: 100px;
     margin: 10px;
@@ -46,6 +49,10 @@ button {
     font-size: 1rem;
 }
 
+.required-field {
+    background-color: rgb(216, 99, 158);
+}
+
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #5a5a8b;
@@ -54,15 +61,15 @@ button {
     opacity: 1; /* Firefox */
 }
 
+/* Internet Explorer 10-11 */
 :-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
     color: #5a5a8b;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
 
+/* Microsoft Edge */
 ::-ms-input-placeholder {
-    /* Microsoft Edge */
     color: #5a5a8b;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
@@ -77,6 +84,9 @@ button {
     z-index: -1;
 }
 
+#input-error {
+    color: crimson;
+}
 .board {
     display: grid;
     grid: repeat(2, 350px) / repeat(3, 350px);
@@ -97,6 +107,56 @@ button {
     border-radius: 3%;
 }
 
+#overlay {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.75);
+}
+
+.img-module {
+    position: absolute;
+    top: 21vh;
+    left: 28.8vw;
+    z-index: 2;
+    width: 450px;
+    height: 470px;
+    border-radius: 3%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+    background-color: #362023;
+}
+
+.img-module p,
+.img-module label,
+.img-module h3 {
+    margin: 0;
+    align-self: flex-start;
+    margin-left: 20px;
+    color: #7899d4;
+}
+
+#img-module__close {
+    width: 45px;
+    height: auto;
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.img-module__pic {
+    height: 350px;
+    width: 350px;
+    object-fit: cover;
+    border-radius: 3%;
+    margin-top: 10px;
+}
 /* Portrait and Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
 }

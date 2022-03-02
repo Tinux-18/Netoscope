@@ -4,10 +4,8 @@ const basicAuth = require("basic-auth");
 const logger = require("morgan");
 const flash = require("connect-flash");
 const db = require("./sql/db");
-const { hash, compare, redirectWithFlash } = require("./utils");
-//TODO move utils to separate folder
-const { serverUpload } = require("./multerUpload");
-const { s3Upload } = require("./aws");
+const { serverUpload } = require("./utils/multer_upload");
+const { s3Upload } = require("./utils/aws");
 
 // Set up basic auth
 const auth = (req, res, next) => {
@@ -38,9 +36,14 @@ app.use(express.static("./public"));
 
 // Routes
 
-app.get("/pics.json", (req, res) => {
-    db.getPics()
+app.get("/pics.json/:picId", (req, res) => {
+    let picId = req.params.picId.replace(":", "");
+    if (picId == 0) {
+        picId = undefined;
+    }
+    db.getPics(picId)
         .then(({ rows }) => {
+            // console.log("rows :>> ", rows);
             res.json(rows);
         })
         .catch(err => console.log(`getPics failed with: ${err}`));
@@ -52,6 +55,9 @@ app.post(
     s3Upload,
     (req, res) => {
         console.log("/upload hit");
+        if (!req.body.username) {
+            return res.sendStatus(500);
+        }
         db.addPic(
             `https://s3.amazonaws.com/spicedling/${req.file.filename}`,
             req.body.username,

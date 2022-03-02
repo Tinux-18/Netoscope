@@ -19,25 +19,33 @@
     <hr>
     <div id="main">
 
-        <form id="upload">
+        <form class="upload">
             <h2>Add your own</h2>
-            <input v-model="title" type="text" name="title" id="title" placeholder="title">
-            <input v-model="description" type="text" name="description" id="description" placeholder="description">
-            <input v-model="username" type="text" name="username" id="username" placeholder="username" required>
-            <input @change="selectFile" type="file" name="file" id="file" accept="image/*" required>
+            <input v-model="title" type="text" name="title" id="title" class="upload__input-text" placeholder="title">
+            <input v-model="description" type="text" name="description" id="description" placeholder="description"
+                class="upload__input-text upload__input">
+            <input v-model="username" type="text" name="username" id="username" class="upload__input-text upload__input"
+                placeholder="username" required>
+            <input @change="selectFile" type="file" name="file" id="file" class="upload__input" accept="image/*"
+                required>
             <label for="file" id="file-label">Choose a pic</label>
             <button @click.prevent.default="upload">
                 Upload
             </button>
+            <h2 id="input-error">{{inputError}}</h2>
         </form>
+
         <hr>
 
         <div class="board">
             <div class="card" v-for="pic in pics">
-                <img :key="pic.id" :id="pic.id" :src="pic.url" :alt="pic.description">
+                <img :key="pic.id" :id="pic.id" :src="pic.url" :alt="pic.description" @click="showImgModule">
                 <label :for="pic.id">{{pic.title}}</label>
             </div>
         </div>
+
+        <focus-on-pic v-if="clickedPicId" :clicked-pic-id-prop="clickedPicId" @hide-img-module="hideImgModule">
+        </focus-on-pic>
     </div>
     <script src="/js/app.js" type="module" crossorigin="use-credentials"></script>
 </body>
