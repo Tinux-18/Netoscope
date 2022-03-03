@@ -40,7 +40,7 @@ hr {
 
 .upload__input-text,
 #file-label,
-button {
+.upload__input button {
     width: 100px;
     margin: 10px;
     background-color: #7899d4;
@@ -50,10 +50,7 @@ button {
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
-#comment-text {
-    min-width: 145px;
-    width: fit-content;
-}
+
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #5a5a8b;
@@ -127,7 +124,7 @@ img {
     left: 28.8vw;
     z-index: 200;
     width: 450px;
-    height: 470px;
+    padding: 10px;
     border-radius: 3%;
     display: flex;
     gap: 10px;
@@ -138,11 +135,17 @@ img {
 
 .img-module p,
 .img-module label,
-.img-module h3 {
+.img-module,
+.comments {
     margin: 0;
     align-self: flex-start;
     margin-left: 20px;
     color: #7899d4;
+}
+
+.img-module label h3 {
+    margin: 0;
+    margin-top: 10px;
 }
 
 #img-module__close {
@@ -162,9 +165,42 @@ img {
     margin-top: 10px;
 }
 
-.comments {
-    margin-left: 20px;
+.comments__header,
+.comments__li {
+    display: flex;
+    justify-content: space-between;
 }
+
+.comments h3 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.comments p {
+    margin: 0;
+}
+
+.comments__submit {
+    margin-top: 10px;
+}
+#comment-text {
+    min-width: 260px;
+    width: fit-content;
+}
+
+.comments button,
+input {
+    width: 70px;
+    margin: 5px;
+    margin-left: 0;
+    background-color: #7899d4;
+    border: 0px;
+    border-radius: 10%;
+    color: #5a5a8b;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+}
+
 /* Portrait and Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
 }

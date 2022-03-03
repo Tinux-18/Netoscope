@@ -61,7 +61,7 @@ export default {
                 <label :for="id"><h3>{{title}}</h3></label>
                 <p>{{description}}</p>
                 <p>Uploaded by {{username}} on {{formatDate(createdAt)}}</p>
-                <comments>
+                <comments :focus-pic-id="this.clickedPicIdProp">
                 </comments>
         </div>
     `,

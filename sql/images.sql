@@ -1,13 +1,13 @@
 -- DROP TABLE IF EXISTS images;
 
-CREATE TABLE images(
-    id SERIAL PRIMARY KEY,
-    url VARCHAR NOT NULL,
-    username VARCHAR NOT NULL,
-    title VARCHAR NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- CREATE TABLE images(
+--     id SERIAL PRIMARY KEY,
+--     url VARCHAR NOT NULL,
+--     username VARCHAR NOT NULL,
+--     title VARCHAR NOT NULL,
+--     description TEXT,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 
 -- INSERT INTO images (url, username, title, description) VALUES (
 --     'https://s3.amazonaws.com/imageboard/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
@@ -30,4 +30,30 @@ CREATE TABLE images(
 --     'That is the question.'
 -- );
 
-SELECT * FROM images ORDER BY id DESC;
+-- SELECT * FROM images ORDER BY id DESC;
+
+----------------------------------------------------------------------------------------------
+
+
+-- DROP TABLE IF EXISTS comments;
+-- CREATE TABLE comments (
+--     id          SERIAL PRIMARY KEY,
+--     commenter   TEXT NOT NULL CHECK (commenter != ''),
+--     comment TEXT NOT NULL CHECK (comment != ''),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     pic_id INTEGER NOT NULL REFERENCES images(id) ON DELETE CASCADE
+-- );
+
+-- INSERT INTO comments (commenter, comment, pic_id) VALUES (
+--     'disccocock',
+--     'This is a great picture',
+--     2
+-- );
+
+-- DELETE FROM comments
+-- WHERE id = 3
+
+SELECT * FROM comments 
+WHERE pic_id = 1
+ORDER BY id DESC
+LIMIT 1

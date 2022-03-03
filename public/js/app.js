@@ -17,7 +17,6 @@ const app = Vue.createApp({
     components: {
         "focus-on-pic": focusPic,
     },
-    emits: ["hide-img-module"],
     mounted: function () {
         fetch("/pics.json/:0")
             .then(res => res.json())

@@ -49,6 +49,21 @@ app.get("/pics.json/:picId", (req, res) => {
         .catch(err => console.log(`getPics failed with: ${err}`));
 });
 
+app.get("/comments.json/:params", (req, res) => {
+    let [picId, limit] = req.params.params
+        .replace(":", "")
+        .split(":");
+    if (limit == 0) {
+        limit = undefined;
+    }
+
+    db.getComments(picId, limit)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch(err => console.log(`getComments failed with: ${err}`));
+});
+
 app.post(
     "/upload",
     serverUpload.single("file"),

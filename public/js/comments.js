@@ -1,51 +1,87 @@
 export default {
     data() {
         return {
-            id: 0,
-            url: "",
-            username: "",
-            title: "",
-            description: "",
-            createdAt: "",
+            commenter: "",
+            comment: "",
+            comments: [
+                {
+                    id: 44,
+                    commenter: "Tim",
+                    commentText: "I loves the cat",
+                },
+                {
+                    id: 44,
+                    commenter: "jon",
+                    commentText: "I hates the cat",
+                },
+            ],
         };
     },
-    props: ["clickedPicIdProp"],
+    props: ["focusPicId"],
     // emits: ["hide-img-module"],
     mounted: function () {
-        // fetch(`/pics.json/:${this.clickedPicIdProp}`)
-        //     .then(res => res.json())
-        //     .then(picData => {
-        //         this.id = picData[0].id;
-        //         this.url = picData[0].url;
-        //         this.username = picData[0].username;
-        //         this.title = picData[0].title;
-        //         this.description = picData[0].description;
-        //         this.createdAt = picData[0].created_at;
-        //     })
-        //     .catch(err =>
-        //         console.log(`fetch pics failed with: ${err}`)
-        //     );
+        console.log("this.focusPicId :>> ", this.focusPicId);
+        fetch(`/comments.json/:${this.focusPicId}:1`)
+            .then(res => res.json())
+            .then(commentsData => {
+                this.comments = commentsData;
+            })
+            .catch(err =>
+                console.log(`fetch comments failed with: ${err}`)
+            );
     },
     methods: {
-        closeButtonClicked: function () {
-            this.$emit("hide-img-module");
+        getAllComments: function () {
+            fetch(`/comments.json/:${this.focusPicId}`)
+                .then(res => res.json())
+                .then(commentsData => {
+                    this.comments = commentsData;
+                })
+                .catch(err =>
+                    console.log(`fetch comments failed with: ${err}`)
+                );
+        },
+        deleteComment: function (commentId) {
+            console.log("commentId :>> ", commentId);
+            // fetch(`/comments.json/:${this.focusPicId}`)
+            //     .then(res => res.json())
+            //     .then(commentsData => {
+            //         this.comments = commentsData;
+            //     })
+            //     .catch(err =>
+            //         console.log(`fetch comments failed with: ${err}`)
+            //     );
+        },
+        submitComment: function () {
+            //on enter press on comment text & submit button pressed
+            // this.$emit("hide-img-module");
         },
     },
     template: `
-        <div id="comments" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up">
-        
+        <div class="comments" aria-label="comments-title">
+            <div class="comments__header">
+                <h3 id="comments-title">Comments</h3>
+                <button @click="getAllComments">
+                    See all
+                </button>
+            </div>
             
+            <div clss="comments__list" v-for="comment in comments">
+                <div class="comments__li">
+                    <p :key="comment.id" :id="comment.id">{{comment.commenter}}: {{comment.comment}}
+                    </p>
+                    <p :id="comment.id" @click="deleteComment(comment.id)">Delete</p>
+                </div>
+            </div>
+            <div class="comments__submit">
+                <input v-model="commenter" type="text" name="commenter" id="commenter" 
+                    placeholder="user name">
+                <input v-model="comment" type="text" name="commentText" id="comment-text" 
+                    placeholder="Write a comment...">
+                <button @click.prevent.default="">
+                    Submit
+                </button>
+            </div>
         </div>
     `,
 };
-
-// `
-//         <div id="overlay" @click="closeButtonClicked" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up"></div>
-//             <div class="img-module">
-//                 <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeButtonClicked">
-//                 <img :id="id" class="img-module__pic" :src='url' :alt="description">
-//                 <label :for="id"><h3>{{title}}</h3></label>
-//                 <p>{{description}}</p>
-//                 <p>Uploaded by {{username}} on {{createdAt}}</p>
-//         </div>
-//     `

@@ -26,3 +26,46 @@ exports.addPic = (url, username, title, description) =>
         "INSERT INTO images (url, username, title, description) VALUES ($1, $2, $3, $4) RETURNING *",
         [url, username, title, description]
     );
+
+exports.removePic = picId =>
+    db.query(
+        `
+        DELETE FROM images
+        WHERE id = $1`,
+        [picId]
+    );
+
+exports.getComments = (picId, limit) => {
+    if (limit) {
+        return db.query(
+            `
+        SELECT * FROM comments 
+        WHERE pic_id = $1
+        ORDER BY id DESC
+        LIMIT $2`,
+            [picId, limit]
+        );
+    } else {
+        return db.query(
+            `
+        SELECT * FROM comments 
+        WHERE pic_id = $1
+        ORDER BY id DESC`,
+            [picId]
+        );
+    }
+};
+
+exports.addComment = (commenter, comment, pic_id) =>
+    db.query(
+        "INSERT INTO comments (commenter, comment, pic_id) VALUES ($1, $2, $3) RETURNING *",
+        [commenter, comment, pic_id]
+    );
+
+exports.removeComment = commentId =>
+    db.query(
+        `
+        DELETE FROM comments
+        WHERE id = $1`,
+        [commentId]
+    );
