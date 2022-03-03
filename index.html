@@ -17,18 +17,29 @@
 
 <body>
     <hr>
+    <div class="comments" aria-label="comments-title">
+        <h3 id="comments-title">Comments</h3>
+        <div clss="comments__list"></div>
+        <div class="comments__submit">
+            <input v-model="commenter" type="text" name="commenter" id="commenter" class="upload__input-text"
+                placeholder="user name">
+            <input v-model="commentText" type="text" name="commentText" id="comment-text" class="upload__input-text"
+                placeholder="Write a comment...">
+        </div>
+    </div>
     <div id="main">
 
-        <form class="upload">
-            <h2>Add your own</h2>
+
+        <form aria-labelledby="form-title" class="upload">
+            <h2 id="form-title">Add your own</h2>
             <input v-model="title" type="text" name="title" id="title" class="upload__input-text" placeholder="title">
             <input v-model="description" type="text" name="description" id="description" placeholder="description"
                 class="upload__input-text upload__input">
             <input v-model="username" type="text" name="username" id="username" class="upload__input-text upload__input"
-                placeholder="username" required>
+                placeholder="username" :style="errorStyle" required>
             <input @change="selectFile" type="file" name="file" id="file" class="upload__input" accept="image/*"
                 required>
-            <label for="file" id="file-label">Choose a pic</label>
+            <label for="file" id="file-label" :style="errorStyle">Choose a pic</label>
             <button @click.prevent.default="upload">
                 Upload
             </button>
@@ -37,12 +48,12 @@
 
         <hr>
 
-        <div class="board">
+        <section class="board" aria-label="Image board">
             <div class="card" v-for="pic in pics">
                 <img :key="pic.id" :id="pic.id" :src="pic.url" :alt="pic.description" @click="showImgModule">
                 <label :for="pic.id">{{pic.title}}</label>
             </div>
-        </div>
+        </section>
 
         <focus-on-pic v-if="clickedPicId" :clicked-pic-id-prop="clickedPicId" @hide-img-module="hideImgModule">
         </focus-on-pic>

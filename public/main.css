@@ -39,20 +39,21 @@ hr {
 }
 
 .upload__input-text,
+#file-label,
 button {
     width: 100px;
     margin: 10px;
     background-color: #7899d4;
     border: 0px;
+    border-radius: 10%;
     color: #5a5a8b;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
-
-.required-field {
-    background-color: rgb(216, 99, 158);
+#comment-text {
+    min-width: 145px;
+    width: fit-content;
 }
-
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #5a5a8b;
@@ -100,6 +101,9 @@ button {
     gap: 10px;
 }
 
+img {
+    -webkit-user-drag: none;
+}
 .card img {
     height: 90%;
     width: 100%;
@@ -121,7 +125,7 @@ button {
     position: absolute;
     top: 21vh;
     left: 28.8vw;
-    z-index: 2;
+    z-index: 200;
     width: 450px;
     height: 470px;
     border-radius: 3%;
@@ -156,6 +160,10 @@ button {
     object-fit: cover;
     border-radius: 3%;
     margin-top: 10px;
+}
+
+.comments {
+    margin-left: 20px;
 }
 /* Portrait and Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {

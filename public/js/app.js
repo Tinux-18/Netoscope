@@ -11,11 +11,13 @@ const app = Vue.createApp({
             pics: [],
             clickedPicId: 0,
             inputError: "",
+            errorStyle: "",
         };
     },
     components: {
         "focus-on-pic": focusPic,
     },
+    emits: ["hide-img-module"],
     mounted: function () {
         fetch("/pics.json/:0")
             .then(res => res.json())
@@ -25,6 +27,12 @@ const app = Vue.createApp({
             .catch(err =>
                 console.log(`fetch pics failed with: ${err}`)
             );
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") {
+                this.hideImgModule();
+            }
+        });
     },
     methods: {
         selectFile: function (e) {
@@ -43,6 +51,8 @@ const app = Vue.createApp({
             })
                 .then(res => res.json())
                 .then(uploadData => {
+                    this.inputError = "";
+                    this.errorStyle = "";
                     this.pics.unshift(uploadData);
                 })
                 .catch(err => {
@@ -50,10 +60,11 @@ const app = Vue.createApp({
                         `fetch upload data failed with: ${err}`
                     );
                     this.inputError = "Fill in required fields";
+                    this.errorStyle =
+                        "background-color: rgb(216, 99, 158)";
                 });
         },
-        //TODO check user input
-        checkFile: function (e) {
+        esc: function (e) {
             console.log("e :>> ", e);
         },
         showImgModule: function (e) {

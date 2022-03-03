@@ -1,3 +1,5 @@
+import comments from "./comments.js";
+
 export default {
     data() {
         return {
@@ -11,6 +13,9 @@ export default {
     },
     props: ["clickedPicIdProp"],
     emits: ["hide-img-module"],
+    components: {
+        comments: comments,
+    },
     mounted: function () {
         fetch(`/pics.json/:${this.clickedPicIdProp}`)
             .then(res => res.json())
@@ -30,15 +35,34 @@ export default {
         closeButtonClicked: function () {
             this.$emit("hide-img-module");
         },
+        formatDate: function (sqlDate) {
+            let dateParams = sqlDate
+                .replace("T", " ")
+                .replace("Z", "")
+                .split(/[- :]/);
+            let dateObj = new Date(
+                Date.UTC(
+                    dateParams[0],
+                    dateParams[1] - 1,
+                    dateParams[2],
+                    dateParams[3],
+                    dateParams[4],
+                    dateParams[5]
+                )
+            );
+            return dateObj.toLocaleString().replace(",", " at");
+        },
     },
     template: `
-        <div id="overlay" @click="closeButtonClicked"></div>
+        <div id="overlay" @click="closeButtonClicked" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up"></div>
             <div class="img-module">
                 <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeButtonClicked">
                 <img :id="id" class="img-module__pic" :src='url' :alt="description">
                 <label :for="id"><h3>{{title}}</h3></label>
                 <p>{{description}}</p>
-                <p>Uploaded by {{username}} on {{createdAt}}</p>
+                <p>Uploaded by {{username}} on {{formatDate(createdAt)}}</p>
+                <comments>
+                </comments>
         </div>
     `,
 };
