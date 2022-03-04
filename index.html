@@ -11,8 +11,10 @@
     <title>Netoscope</title>
 </head>
 <header>
-    <img src="/logo.gif" alt="Kaiserpanorama" id="logo">
-    <h1>Netoscope</h1>
+    <a href="/"><img src="/logo.gif" alt="Kaiserpanorama" id="logo"></a>
+    <a href="/">
+        <h1>Netoscope</h1>
+    </a>
 </header>
 
 <body>
@@ -33,7 +35,7 @@
             <button @click.prevent.default="upload">
                 Upload
             </button>
-            <h2 id="input-error">{{inputError}}</h2>
+            <h3 id="input-error">{{inputError}}</h3>
         </form>
 
         <hr>

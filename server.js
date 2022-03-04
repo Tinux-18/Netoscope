@@ -36,17 +36,30 @@ app.use(express.static("./public"));
 
 // Routes
 
-app.get("/pics.json/:picId", (req, res) => {
-    let picId = req.params.picId.replace(":", "");
+app.get("/pics.json/:params", (req, res) => {
+    let [picId, offsetId] = req.params.params
+        .replace(":", "")
+        .split(":");
+
     if (picId == 0) {
         picId = undefined;
     }
-    db.getPics(picId)
+
+    if (offsetId == 0) {
+        offsetId = undefined;
+    }
+
+    // console.log("picId :>> ", picId);
+    // console.log("offsetId :>> ", offsetId);
+
+    db.getPics(picId, offsetId)
         .then(({ rows }) => {
-            // console.log("rows :>> ", rows);
             res.json(rows);
         })
-        .catch(err => console.log(`getPics failed with: ${err}`));
+        .catch(err => {
+            console.log(`getPics failed with: ${err}`);
+            return res.sendStatus(403);
+        });
 });
 
 app.get("/comments.json/:params", (req, res) => {

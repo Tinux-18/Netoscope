@@ -11,7 +11,6 @@ export default {
         };
     },
     props: ["focusPicId"],
-    // emits: ["hide-img-module"],
     mounted: function () {
         console.log("this.focusPicId :>> ", this.focusPicId);
         this.getComments(this.commentLimit);

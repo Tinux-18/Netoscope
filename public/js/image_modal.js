@@ -22,24 +22,27 @@ export default {
         },
     },
     mounted: function () {
-        fetch(`/pics.json/:${this.clickedPicIdProp}`)
-            .then(res => res.json())
-            .then(picData => {
-                this.id = picData[0].id;
-                this.url = picData[0].url;
-                this.username = picData[0].username;
-                this.title = picData[0].title;
-                this.description = picData[0].description;
-                this.createdAt = picData[0].created_at;
-            })
-            .catch(err => {
-                console.log(`fetch pics failed with: ${err}`);
-                this.$emit("hide-img-module");
-            });
+        this.getPic();
     },
     methods: {
         closeButtonClicked: function () {
             this.$emit("hide-img-module");
+        },
+        getPic: function () {
+            fetch(`/pics.json/:${this.clickedPicIdProp}`)
+                .then(res => res.json())
+                .then(picData => {
+                    this.id = picData[0].id;
+                    this.url = picData[0].url;
+                    this.username = picData[0].username;
+                    this.title = picData[0].title;
+                    this.description = picData[0].description;
+                    this.createdAt = picData[0].created_at;
+                })
+                .catch(err => {
+                    console.log(`fetch pics failed with: ${err}`);
+                    this.$emit("hide-img-module");
+                });
         },
         formatDate: function (sqlDate) {
             let dateParams = sqlDate

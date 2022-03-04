@@ -11,13 +11,31 @@ const db = spicedPg(
         }@localhost:5432/imageboard`
 );
 
-exports.getPics = picId => {
+exports.getPics = (picId, offsetId) => {
     if (picId) {
-        return db.query("SELECT * FROM images WHERE id = ($1)", [
+        return db.query(`SELECT * FROM images WHERE id = ($1)`, [
             picId,
         ]);
+    } else if (offsetId) {
+        return db.query(
+            `SELECT id, url, username, title, description, created_at, 
+            (SELECT id FROM images
+            ORDER BY id ASC
+            LIMIT 1) AS "lowestId"
+            FROM images 
+            WHERE id < ($1) 
+            ORDER BY id DESC 
+            LIMIT 6`,
+            [offsetId]
+        );
     } else {
-        return db.query("SELECT * FROM images ORDER BY id DESC");
+        return db.query(
+            `SELECT id, url, username, title, description, created_at, 
+            (SELECT id FROM images
+            ORDER BY id ASC
+            LIMIT 1) AS "lowestId"
+            FROM images ORDER BY id DESC LIMIT 6`
+        );
     }
 };
 

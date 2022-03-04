@@ -32,6 +32,28 @@
 
 -- SELECT * FROM images ORDER BY id DESC;
 
+SELECT id, url, username, title, description, created_at, (
+  SELECT id FROM images
+  ORDER BY id ASC
+  LIMIT 1
+) AS "lowestId" FROM images 
+ORDER BY id DESC
+LIMIT 6;
+
+-- SELECT url, title, id, (
+--   SELECT id FROM images
+--   ORDER BY id ASC
+--   LIMIT 1
+-- ) AS "lowestId" FROM images
+-- WHERE id < 27
+-- ORDER BY id DESC
+-- LIMIT 6;
+
+-- SELECT * FROM images
+-- WHERE id < 27
+-- ORDER BY id DESC
+-- LIMIT 6;
+
 ----------------------------------------------------------------------------------------------
 
 
@@ -44,12 +66,12 @@
 --     pic_id INTEGER NOT NULL REFERENCES images(id) ON DELETE CASCADE
 -- );
 
-INSERT INTO comments (commenter, comment, pic_id) VALUES (
-    'disccocock',
-    'This is a great picture',
-    1
-)
-RETURNS TABLE (LIKE comments);
+-- INSERT INTO comments (commenter, comment, pic_id) VALUES (
+--     'disccocock',
+--     'This is a great picture',
+--     1
+-- )
+-- RETURNS TABLE (LIKE comments);
 
 -- DELETE FROM comments
 -- WHERE id = 3
