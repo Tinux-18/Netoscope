@@ -16,6 +16,11 @@ export default {
     components: {
         comments: comments,
     },
+    watch: {
+        clickedPicIdProp: () => {
+            console.log("clickedPicIdProp changed");
+        },
+    },
     mounted: function () {
         fetch(`/pics.json/:${this.clickedPicIdProp}`)
             .then(res => res.json())
@@ -27,9 +32,10 @@ export default {
                 this.description = picData[0].description;
                 this.createdAt = picData[0].created_at;
             })
-            .catch(err =>
-                console.log(`fetch pics failed with: ${err}`)
-            );
+            .catch(err => {
+                console.log(`fetch pics failed with: ${err}`);
+                this.$emit("hide-img-module");
+            });
     },
     methods: {
         closeButtonClicked: function () {

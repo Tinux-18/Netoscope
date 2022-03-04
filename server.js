@@ -64,6 +64,41 @@ app.get("/comments.json/:params", (req, res) => {
         .catch(err => console.log(`getComments failed with: ${err}`));
 });
 
+app.delete("/comments", (req, res) => {
+    db.removeComment(req.body.id)
+        .then(({ rows }) => {
+            console.log(
+                `comment ${req.body.id} removed successfully`
+            );
+            res.json(rows[0]);
+            res.status(200);
+        })
+        .catch(err => {
+            console.log(`getComments failed with: ${err}`);
+            return res.sendStatus(500);
+        });
+});
+
+app.post("/comments", (req, res) => {
+    db.addComment(
+        req.body.commenter,
+        req.body.comment,
+        req.body.picId
+    )
+        .then(({ rows }) => {
+            console.log("rows :>> ", rows);
+            console.log(
+                `comment for ${req.body.pic_id} added successfully`
+            );
+            res.json(rows[0]);
+            res.status(200);
+        })
+        .catch(err => {
+            console.log(`addComment failed with: ${err}`);
+            return res.sendStatus(500);
+        });
+});
+
 app.post(
     "/upload",
     serverUpload.single("file"),

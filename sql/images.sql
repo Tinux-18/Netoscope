@@ -44,16 +44,17 @@
 --     pic_id INTEGER NOT NULL REFERENCES images(id) ON DELETE CASCADE
 -- );
 
--- INSERT INTO comments (commenter, comment, pic_id) VALUES (
---     'disccocock',
---     'This is a great picture',
---     2
--- );
+INSERT INTO comments (commenter, comment, pic_id) VALUES (
+    'disccocock',
+    'This is a great picture',
+    1
+)
+RETURNS TABLE (LIKE comments);
 
 -- DELETE FROM comments
 -- WHERE id = 3
 
-SELECT * FROM comments 
-WHERE pic_id = 1
-ORDER BY id DESC
-LIMIT 1
+-- SELECT * FROM comments 
+-- WHERE pic_id = 1
+-- ORDER BY id DESC
+-- LIMIT 1

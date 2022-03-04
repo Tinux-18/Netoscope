@@ -56,16 +56,17 @@ exports.getComments = (picId, limit) => {
     }
 };
 
-exports.addComment = (commenter, comment, pic_id) =>
+exports.addComment = (commenter, comment, picId) =>
     db.query(
         "INSERT INTO comments (commenter, comment, pic_id) VALUES ($1, $2, $3) RETURNING *",
-        [commenter, comment, pic_id]
+        [commenter, comment, picId]
     );
 
 exports.removeComment = commentId =>
     db.query(
         `
         DELETE FROM comments
-        WHERE id = $1`,
+        WHERE id = $1
+        RETURNING *`,
         [commentId]
     );

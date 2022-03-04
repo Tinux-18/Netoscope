@@ -9,7 +9,7 @@ const app = Vue.createApp({
             username: "",
             file: null,
             pics: [],
-            clickedPicId: 0,
+            clickedPicId: location.pathname.slice(1),
             inputError: "",
             errorStyle: "",
         };
@@ -31,6 +31,10 @@ const app = Vue.createApp({
             if (e.key === "Escape") {
                 this.hideImgModule();
             }
+        });
+
+        window.addEventListener("popstate", e => {
+            this.clickedPicId = location.pathname.slice(1);
         });
     },
     methods: {
@@ -69,9 +73,11 @@ const app = Vue.createApp({
         showImgModule: function (e) {
             console.log(`img with id ${e.target.id} clicked`);
             this.clickedPicId = e.target.id;
+            history.pushState({}, "", `/${e.target.id}`);
         },
         hideImgModule: function () {
             this.clickedPicId = 0;
+            history.pushState({}, "", `/`);
         },
     },
 });
