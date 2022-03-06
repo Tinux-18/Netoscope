@@ -22,8 +22,8 @@ const app = Vue.createApp({
     mounted: function () {
         this.getPics();
 
-        window.setInterval(() => {
-            this.infiniteScroll();
+        let intervalId = window.setInterval(() => {
+            this.infiniteScroll(intervalId);
         }, 1000);
 
         document.addEventListener("keydown", e => {
@@ -35,9 +35,6 @@ const app = Vue.createApp({
         window.addEventListener("popstate", e => {
             this.clickedPicId = location.pathname.slice(1);
         });
-    },
-    watcher: function () {
-        console.log("checking");
     },
     methods: {
         selectFile: function (e) {
@@ -58,7 +55,7 @@ const app = Vue.createApp({
                 .then(uploadData => {
                     this.inputError = "";
                     this.errorStyle = "";
-                    this.getPics();
+                    this.pics.unshift(uploadData);
                 })
                 .catch(err => {
                     console.log(
@@ -73,22 +70,19 @@ const app = Vue.createApp({
             fetch(`/pics.json/:0:${this.lastPic}`)
                 .then(res => res.json())
                 .then(picsData => {
-                    console.log(
-                        "this.pics.lenght :>> ",
-                        this.pics.length
-                    );
                     if (this.pics.length > 0) {
                         console.log("should push");
                         this.pics.push(...picsData);
-                        // this.pics.unshift(picsData);
                     } else {
                         this.pics = picsData;
                     }
 
-                    this.lastPic = picsData[5].id;
-                    this.lowestId = picsData[5].lowestId;
+                    this.lastPic = picsData[picsData.length - 1].id;
+                    this.lowestId =
+                        picsData[picsData.length - 1].lowestId;
                     console.log("lastPic :>> ", this.lastPic);
                     console.log("lowestId :>> ", this.lowestId);
+                    console.log("this.pics.lenght :>> ", this.pics);
                 })
                 .catch(err =>
                     console.log(`fetch pics failed with: ${err}`)
@@ -125,14 +119,16 @@ const app = Vue.createApp({
             console.log("this :>> ", this);
             console.log("this.lastId :>> ", this.lowestId);
         },
-        infiniteScroll: function infiniteScroll() {
+        infiniteScroll: function infiniteScroll(intervalId) {
             if (this.lowestId == this.lastPic) {
                 console.log("Nothing more to display");
+                clearInterval(intervalId);
                 return;
             }
 
-            let documentScrollTop =
-                document.scrollingElement.scrollTop;
+            let documentScrollTop = Math.round(
+                document.scrollingElement.scrollTop
+            );
 
             let windowHeight = window.innerHeight;
 
@@ -145,6 +141,8 @@ const app = Vue.createApp({
                 bodyElement.scrollHeight,
                 bodyElement.offsetHeight
             );
+
+            // this.logInfiniteScroll(documentHeight);
 
             if (documentScrollTop + windowHeight == documentHeight) {
                 console.log("user is at the bottom");

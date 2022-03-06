@@ -101,7 +101,7 @@ app.post("/comments", (req, res) => {
         .then(({ rows }) => {
             console.log("rows :>> ", rows);
             console.log(
-                `comment for ${req.body.pic_id} added successfully`
+                `comment for img with id ${req.body.picId} added successfully`
             );
             res.json(rows[0]);
             res.status(200);

@@ -24,11 +24,12 @@ header a {
     height: 70px;
     margin-top: 10px;
     margin-left: 20px;
+    opacity: 0.8;
 }
 
 hr {
     border: 0;
-    border-top: 4px solid #700548;
+    border-top: 4px solid #5a5a8b;
 }
 
 .upload {
@@ -41,26 +42,28 @@ hr {
 
 .upload h2 {
     padding-right: 40px;
+    color: #700548;
 }
 
 .upload__input-text,
 #file-label,
-.upload__input button {
+.upload button {
     width: 100px;
     margin: 10px;
     background-color: #7899d4;
     border: 0px;
     border-radius: 10%;
-    color: #5a5a8b;
+    color: #700548;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
 
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #5a5a8b;
+    color: #700548;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
+    font-weight: bold;
     opacity: 1; /* Firefox */
 }
 
