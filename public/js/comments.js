@@ -93,7 +93,7 @@ export default {
             <h3 id="input-error">{{inputError}}</h3>
             <div class="comments__submit">
                 <input v-model="commenter" type="text" name="commenter" id="commenter" 
-                    placeholder="user name" :style="errorStyle">
+                    placeholder="User" :style="errorStyle">
                 <input v-model="comment" type="text" name="commentText" id="comment-text" 
                     placeholder="Write a comment..." :style="errorStyle">
                 <button @click="submitComment">

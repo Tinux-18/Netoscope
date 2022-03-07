@@ -7,12 +7,20 @@ body {
 }
 
 header {
+    margin: 15px;
     height: 80px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 15px;
     font-family: "Limelight", cursive;
     font-size: large;
     color: #362023;
+}
+
+header div {
+    display: flex;
+    gap: 15px;
 }
 
 header a {
@@ -23,21 +31,30 @@ header a {
     width: 70px;
     height: 70px;
     margin-top: 10px;
-    margin-left: 20px;
     opacity: 0.8;
 }
 
-hr {
-    border: 0;
-    border-top: 4px solid #5a5a8b;
+.upload-module {
+    position: absolute;
+    z-index: 3;
+    left: 31vw;
+    width: 358px;
+    height: 350px;
+    padding: 40px;
+    border-radius: 3%;
+    background-color: #362023;
 }
 
 .upload {
-    height: 40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
+}
+
+.upload div {
+    display: flex;
+    align-items: center;
 }
 
 .upload h2 {
@@ -53,14 +70,13 @@ hr {
     background-color: #7899d4;
     border: 0px;
     border-radius: 10%;
-    color: #700548;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
 
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #700548;
+    color: #080705;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
     font-weight: bold;
@@ -69,14 +85,14 @@ hr {
 
 /* Internet Explorer 10-11 */
 :-ms-input-placeholder {
-    color: #5a5a8b;
+    color: #080705;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
 
 /* Microsoft Edge */
 ::-ms-input-placeholder {
-    color: #5a5a8b;
+    color: #080705;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
 }
@@ -93,6 +109,7 @@ hr {
 #input-error {
     color: crimson;
 }
+
 .board {
     display: grid;
     grid: repeat(2, 350px) / repeat(3, 350px);
@@ -119,7 +136,7 @@ img {
 #overlay {
     position: absolute;
     z-index: 1;
-    top: 0;
+    top: -20px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -129,9 +146,10 @@ img {
 .img-module {
     position: absolute;
     top: 21vh;
-    left: 28.8vw;
+    left: 33.8vw;
     z-index: 200;
     width: 450px;
+    height: fit-content;
     padding: 10px;
     border-radius: 3%;
     display: flex;
@@ -143,7 +161,6 @@ img {
 
 .img-module p,
 .img-module label,
-.img-module,
 .comments {
     margin: 0;
     align-self: flex-start;
@@ -198,17 +215,25 @@ img {
 
 .comments button,
 input {
-    width: 70px;
+    width: 77px;
     margin: 5px;
     margin-left: 0;
     background-color: #7899d4;
     border: 0px;
     border-radius: 10%;
-    color: #5a5a8b;
     font-family: "Lato", sans-serif;
     font-size: 1rem;
+    font-weight: bold;
+    color: #080705;
 }
 
+footer {
+    height: 40px;
+}
+
+footer p {
+    margin: 20px;
+}
 /* Portrait and Landscape */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
 }

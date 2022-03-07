@@ -32,13 +32,13 @@
 
 -- SELECT * FROM images ORDER BY id DESC;
 
-SELECT id, url, username, title, description, created_at, (
-  SELECT id FROM images
-  ORDER BY id ASC
-  LIMIT 1
-) AS "lowestId" FROM images 
-ORDER BY id DESC
-LIMIT 6;
+-- SELECT id, url, username, title, description, created_at, (
+--   SELECT id FROM images
+--   ORDER BY id ASC
+--   LIMIT 1
+-- ) AS "lowestId" FROM images 
+-- ORDER BY id DESC
+-- LIMIT 6;
 
 -- SELECT url, title, id, (
 --   SELECT id FROM images
@@ -73,8 +73,8 @@ LIMIT 6;
 -- )
 -- RETURNS TABLE (LIKE comments);
 
--- DELETE FROM comments
--- WHERE id = 3
+DELETE FROM images
+WHERE id = 10
 
 -- SELECT * FROM comments 
 -- WHERE pic_id = 1

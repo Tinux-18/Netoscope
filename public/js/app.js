@@ -1,5 +1,6 @@
 import * as Vue from "./vue.js";
 import focusPic from "./image_modal.js";
+import uploadForm from "./upload.js";
 
 const app = Vue.createApp({
     data() {
@@ -8,16 +9,18 @@ const app = Vue.createApp({
             description: "",
             username: "",
             file: null,
-            pics: [],
-            lastPic: 0,
-            clickedPicId: location.pathname.slice(1),
             inputError: "",
             errorStyle: "",
+            pics: [],
+            lastPic: 0,
             lowestId: 0,
+            clickedPicId: location.pathname.slice(1),
+            visibleUploadModule: false,
         };
     },
     components: {
         "focus-on-pic": focusPic,
+        "upload-form": uploadForm,
     },
     mounted: function () {
         this.getPics();
@@ -28,7 +31,7 @@ const app = Vue.createApp({
 
         document.addEventListener("keydown", e => {
             if (e.key === "Escape") {
-                this.hideImgModule();
+                this.hideModules();
             }
         });
 
@@ -93,9 +96,17 @@ const app = Vue.createApp({
             this.clickedPicId = e.target.id;
             history.pushState({}, "", `/${e.target.id}`);
         },
-        hideImgModule: function () {
+        hideModules: function () {
             this.clickedPicId = 0;
             history.pushState({}, "", `/`);
+            this.visibleUploadModule = false;
+        },
+        showUploadModule: function (e) {
+            console.log(`show upload clicked`);
+            this.visibleUploadModule = true;
+        },
+        addImg: function (newImg) {
+            this.pics.unshift(newImg);
         },
         logInfiniteScroll: function (x) {
             console.log(
@@ -104,7 +115,7 @@ const app = Vue.createApp({
             );
             console.log(
                 "🚀 ~ file: app.js ~ line 89 ~ infiniteScroll ~ document.scrollingElement.scrollTop",
-                document.scrollingElement.scrollTop
+                Math.ceil(document.scrollingElement.scrollTop)
             );
             console.log(
                 "🚀 ~ file: app.js ~ line 91 ~ infiniteScroll ~ window.innerHeight",
@@ -126,7 +137,7 @@ const app = Vue.createApp({
                 return;
             }
 
-            let documentScrollTop = Math.round(
+            let documentScrollTop = Math.ceil(
                 document.scrollingElement.scrollTop
             );
 
@@ -142,9 +153,14 @@ const app = Vue.createApp({
                 bodyElement.offsetHeight
             );
 
-            // this.logInfiniteScroll(documentHeight);
+            this.logInfiniteScroll(documentHeight);
 
-            if (documentScrollTop + windowHeight == documentHeight) {
+            if (
+                documentScrollTop + windowHeight == documentHeight ||
+                documentScrollTop + windowHeight ==
+                    documentHeight - 1 ||
+                documentScrollTop + windowHeight == documentHeight + 1
+            ) {
                 console.log("user is at the bottom");
                 this.getPics();
             }

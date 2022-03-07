@@ -63,15 +63,18 @@ export default {
         },
     },
     template: `
-        <div id="overlay" @click="closeButtonClicked" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up"></div>
-            <div class="img-module">
-                <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeButtonClicked">
-                <img :id="id" class="img-module__pic" :src='url' :alt="description">
-                <label :for="id"><h3>{{title}}</h3></label>
-                <p>{{description}}</p>
-                <p>Uploaded by {{username}} on {{formatDate(createdAt)}}</p>
-                <comments :focus-pic-id="this.clickedPicIdProp">
-                </comments>
+        <div id="overlay" @click="closeButtonClicked"></div>
+        
+        <div class="img-module" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up">
+        
+            <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeButtonClicked">
+            <img :id="id" class="img-module__pic" :src='url' :alt="description">
+            <label :for="id"><h3>{{title}}</h3></label>
+            <p>{{description}}</p>
+            <p>Uploaded by {{username}} on {{formatDate(createdAt)}}</p>
+            
+            <comments :focus-pic-id="this.clickedPicIdProp">
+            </comments>
         </div>
     `,
 };
