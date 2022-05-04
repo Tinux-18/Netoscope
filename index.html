@@ -33,7 +33,8 @@
             </div>
         </section>
 
-        <focus-on-pic v-if="clickedPicId" :clicked-pic-id-prop="clickedPicId" @hide-img-module="hideModules">
+        <focus-on-pic v-if="clickedPicId" :clicked-pic-id-prop="clickedPicId" @hide-img-module="hideModules"
+            @prev-img="prevFocusPic" @next-img="nextFocusPic">
         </focus-on-pic>
     </body>
 </div>

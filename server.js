@@ -6,11 +6,15 @@ const flash = require("connect-flash");
 const db = require("./sql/db");
 const { serverUpload } = require("./utils/multer_upload");
 const { s3Upload } = require("./utils/aws");
+const {
+    imageboardUser: user,
+    imageboardPass: pass,
+} = require("./secrets.json");
 
 // Set up basic auth
 const auth = (req, res, next) => {
     const creds = basicAuth(req);
-    if (!creds || creds.name != "a" || creds.pass != "b") {
+    if (!creds || creds.name != user || creds.pass != pass) {
         res.setHeader(
             "WWW-Authenticate",
             'Basic realm="Enter your credentials!"'

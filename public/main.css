@@ -74,6 +74,15 @@ header a {
     font-size: 1rem;
 }
 
+/* #description {
+    height: 60px;
+    width: 260px;
+    padding: 2px;
+} */
+
+#upload__button {
+    margin: 0;
+}
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #080705;
@@ -190,6 +199,12 @@ img {
     margin-top: 10px;
 }
 
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .comments__header,
 .comments__li {
     display: flex;
@@ -209,7 +224,7 @@ img {
     margin-top: 10px;
 }
 #comment-text {
-    min-width: 260px;
+    min-width: 250px;
     width: fit-content;
 }
 

@@ -83,13 +83,20 @@ const app = Vue.createApp({
                     this.lastPic = picsData[picsData.length - 1].id;
                     this.lowestId =
                         picsData[picsData.length - 1].lowestId;
-                    console.log("lastPic :>> ", this.lastPic);
-                    console.log("lowestId :>> ", this.lowestId);
-                    console.log("this.pics.lenght :>> ", this.pics);
+                    // console.log("lastPic :>> ", this.lastPic);
+                    // console.log("lowestId :>> ", this.lowestId);
                 })
                 .catch(err =>
                     console.log(`fetch pics failed with: ${err}`)
                 );
+        },
+        nextFocusPic: function (e) {
+            // console.log(`img with id ${e.target.id} clicked`);
+            this.clickedPicId++;
+        },
+        prevFocusPic: function (e) {
+            // console.log(`img with id ${e.target.id} clicked`);
+            this.clickedPicId--;
         },
         showImgModule: function (e) {
             console.log(`img with id ${e.target.id} clicked`);
@@ -108,22 +115,26 @@ const app = Vue.createApp({
         addImg: function (newImg) {
             this.pics.unshift(newImg);
         },
-        logInfiniteScroll: function (x) {
+        logInfiniteScroll: function (
+            documentScrollTop,
+            windowHeight,
+            documentHeight
+        ) {
             console.log(
                 "%c########################################",
                 "color: white; background-color: #007acc;"
             );
             console.log(
                 "🚀 ~ file: app.js ~ line 89 ~ infiniteScroll ~ document.scrollingElement.scrollTop",
-                Math.ceil(document.scrollingElement.scrollTop)
+                documentScrollTop
             );
             console.log(
                 "🚀 ~ file: app.js ~ line 91 ~ infiniteScroll ~ window.innerHeight",
-                window.innerHeight
+                windowHeight
             );
             console.log(
                 "🚀 ~ file: app.js ~ line 93 ~ infiniteScroll ~ document.innerHeight",
-                x
+                documentHeight
             );
         },
         logLastId: function () {
@@ -153,7 +164,11 @@ const app = Vue.createApp({
                 bodyElement.offsetHeight
             );
 
-            this.logInfiniteScroll(documentHeight);
+            // this.logInfiniteScroll(
+            //     documentScrollTop,
+            //     windowHeight,
+            //     documentHeight
+            // );
 
             if (
                 documentScrollTop + windowHeight == documentHeight ||

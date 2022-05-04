@@ -45,11 +45,14 @@ export default {
         closeModule: function () {
             this.$emit("hide-upload-module");
         },
+        logMe: function () {
+            console.log("file clicked");
+        },
     },
     template: `
         <div id="overlay" @click="closeModule"></div>
 
-        <div class="upload-module" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up">
+        <div class="upload-module" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up" >
 
             <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeModule">
 
@@ -85,7 +88,7 @@ export default {
 
                 
                 
-                <button @click.prevent.default="upload">
+                <button @click.prevent.default="upload" id="upload__button">
                     Upload
                 </button>
 

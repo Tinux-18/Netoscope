@@ -12,7 +12,7 @@ export default {
         };
     },
     props: ["clickedPicIdProp"],
-    emits: ["hide-img-module"],
+    emits: ["hide-img-module", "prev-img", "next-img"],
     components: {
         comments: comments,
     },
@@ -22,14 +22,14 @@ export default {
         },
     },
     mounted: function () {
-        this.getPic();
+        this.getPic(this.clickedPicIdProp);
     },
     methods: {
         closeButtonClicked: function () {
             this.$emit("hide-img-module");
         },
-        getPic: function () {
-            fetch(`/pics.json/:${this.clickedPicIdProp}`)
+        getPic: function (picId) {
+            fetch(`/pics.json/:${picId}`)
                 .then(res => res.json())
                 .then(picData => {
                     this.id = picData[0].id;
@@ -68,7 +68,9 @@ export default {
         <div class="img-module" aria-description="Pop-up showing image info & comments" aria-label="Image pop-up">
         
             <img id="img-module__close" src="/close_button.png" alt="close module button" @click="closeButtonClicked">
-            <img :id="id" class="img-module__pic" :src='url' :alt="description">
+            <div class="carousel">
+                <img :id="id" class="img-module__pic" :src='url' :alt="description">
+            </div>
             <label :for="id"><h3>{{title}}</h3></label>
             <p>{{description}}</p>
             <p>Uploaded by {{username}} on {{formatDate(createdAt)}}</p>
@@ -78,3 +80,7 @@ export default {
         </div>
     `,
 };
+
+// {/* <h1 class="arrow" @click="$emit('prev-img')">&lt;</h1>
+//                 <img :id="id" class="img-module__pic" :src='url' :alt="description">
+//                 <h1 class="arrow" @click="$emit('next-img')">&gt;</h1> */}
