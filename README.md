@@ -56,3 +56,7 @@ in Humbolt Forum.
 -   improve image load speed
 -   refactor UI with Grid
 -   deploy to Heroku
+
+## Preview
+
+<img align="left" alt="linkedin" src="previews/netoscope_landing_preview.png" />
