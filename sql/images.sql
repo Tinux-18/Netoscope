@@ -73,8 +73,8 @@
 -- )
 -- RETURNS TABLE (LIKE comments);
 
-DELETE FROM images
-WHERE id = 10
+-- DELETE FROM images
+-- WHERE id = 10
 
 -- SELECT * FROM comments 
 -- WHERE pic_id = 1
