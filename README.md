@@ -2,6 +2,8 @@
 
 ## Overview
 
+## Status -  Working version ready
+
 Netoscope is a image board where the user is able to upload an image
 and comment on existing images.
 
